@@ -70,6 +70,21 @@ app.post('/api/groceries', function (req, res) {
 
 });
 
+// Get a grocery Item
+app.get('/api/groceries/:id', function (req, res) {
+    const grocery = {
+        name: req.body.name,
+        quantity: req.body.quantity
+    };
+    console.log("Getting item - ", req.params.id);
+    Grocery.find({_id: req.params.id}, function (err, grocery) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(grocery);
+    });
+});
+
 // Update a grocery Item
 app.put('/api/groceries/:id', function (req, res) {
     const grocery = {
@@ -84,6 +99,8 @@ app.put('/api/groceries/:id', function (req, res) {
         res.send(raw);
     });
 });
+
+
 
 
 // Delete a grocery Item
